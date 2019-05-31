@@ -41,12 +41,79 @@ float media(float a, float b, float c, char letra){
 
 }
 
+//QUARTO exercicio
+//Crie uma função que receba como parâmetro dois vetores de dez elementos inteiros
+//positivos e mostre o vetor união desses dois vetores.
+void ler_vetor(int vetor[]){
+
+    for(int i = 0; i < 10; i++){
+        printf("%d º valor: ",i+1);
+        scanf("%d",&vetor[i]);
+    }
+}
+void uniao_de_vetores(int *v1, int *v2){
+
+    int comparar = 0, cont = 10;
+    int uniao[20];
+
+    printf("A união dos dois vetores é: \n");
+
+    for (int i = 0; i < 10; i++){
+        uniao[i] = v1[i];
+    }
+
+    for (int i = 0; i < 10; i++){
+        for (int j  = 0; j < cont; j++){
+           if (v2[i]==uniao[j]){
+              comparar++;
+           }
+           
+        }
+        if (comparar==0){
+            uniao[cont] = v2[i];
+            cont++;
+        }
+
+        comparar = 0;
+        
+    }
+
+    for ( int i = 0; i < cont; i++){
+        printf("%d ",uniao[i]);
+    }
+}
+
+
+//Faça uma função que receba como parâmetro um vetor A com cinco números reais
+//e retorne esses números ordenados de forma crescente.
+//QUINTO exercicio
+int *vetor_ordemCrescente(int *vetor){
+    int valor_maior;
+    for (int i = 0; i < 5; i++){
+        for (size_t j = 0; j < 5; j++){
+            if (vetor[i] > vetor[j]){
+                valor_maior = vetor[i];
+
+                vetor[i] = vetor[j];
+                vetor[j] = valor_maior;
+
+
+            }
+            
+        }
+        
+    }
+    
+    return vetor;
+}
+
 int main (){
     //VARIAVEIS GLOBAIS
     int opc_menu;
     float a,b,c;
     float teste;
     char letra;
+    int  vetor1[10],vetor2[10],ordem_crescente[5];   
 
     do{
         printf("Menu \n");
@@ -72,11 +139,32 @@ int main (){
                 scanf("%f",&c);
 
                 do{
-                    printf("a ou p");
+                    printf(" (a) media simples (p) media ponderada");
                     scanf(" %c",&letra);
                 }while(letra != 'a' && letra != 'p');
 
                 printf("A media desejada é : %0.2f ",media(a, b, c ,letra));
+            break;
+
+            case 4:
+                ler_vetor(vetor1);
+                ler_vetor(vetor2);
+                uniao_de_vetores(vetor1,vetor2);
+            break;
+
+            case 5:
+                for (int i = 0; i < 5; i++){
+                    printf("%d º valor do vetor: ",i+1);
+                    scanf("%d",&ordem_crescente[i]);
+                }
+                vetor_ordemCrescente(ordem_crescente);
+                //int teste [] = vetor_ordemCrescente(ordem_crescente);
+                printf("Mostrando o vetor preenchido na ordem crescente: ");
+                for (int i = 5; i > 0; i--){
+                    printf("%d ",ordem_crescente[i-1]);
+                }
+
+                //REVER A LOGICA DEPOIS
             break;
 
 
