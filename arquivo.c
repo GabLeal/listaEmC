@@ -4,6 +4,8 @@
 #define p1 5
 #define p2 3
 #define p3 2
+#define linha_matriz 5
+#define coluna_matriz 5
 //FUNÇÔES
 
 
@@ -90,7 +92,7 @@ void uniao_de_vetores(int *v1, int *v2){
 int *vetor_ordemCrescente(int *vetor){
     int valor_maior;
     for (int i = 0; i < 5; i++){
-        for (size_t j = 0; j < 5; j++){
+        for (int j = 0; j < 5; j++){
             if (vetor[i] > vetor[j]){
                 valor_maior = vetor[i];
 
@@ -107,13 +109,89 @@ int *vetor_ordemCrescente(int *vetor){
     return vetor;
 }
 
+
+//Faça uma função que receba como parâmetro uma matriz A(5,5) e retorne a soma
+//de seus elementos.
+int soma_matriz(int matriz[][coluna_matriz]){
+                int soma = 0;
+                for (int i = 0; i < linha_matriz; i++){
+                    for(int j = 0; j< coluna_matriz; j++){
+                        printf("Preencha a matriz na poosição (%d,%d) ",i,j);
+                        scanf("%d",&matriz[i][j]);
+                        //arrumar o codigo depois
+                        if (i == 0 && j ==0)
+                        {
+                            soma = matriz[i][j];
+                        }else{
+                            soma += matriz[i][j];
+                        }
+                    }                    
+                }
+
+                return soma;
+}
+
+
+//exercicio 8 - trinagulo
+int tipo_triangulo(int a, int b, int c){
+    if ( a == b && b == c){
+        return 0;    
+    }else{
+        if (a == b && b != c){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+
+    
+}
+
+void existencia_triangulo(int a, int b, int c){
+//a medida de um lado qualquer deve ser inferior ou igual à soma das medidas dos outros dois).
+    if (a <= b+c && b<= a+c && c<= a+b){
+       int triangulo = tipo_triangulo(a,b,c);
+       if(triangulo == 0){
+           printf("O triangulo é equilatero");
+       }else{
+           if (triangulo == 1){
+               printf("O trinagulo é isósceles");
+           }else{
+               printf("o triangulo é escaleno");
+           }
+           
+       }
+    }else{
+        printf("Para as medidas inseridas NÃO é possivel formar nenhum triangulo!");
+    }
+}
+
+int verificarMedidas(){
+    int a,b,c;
+    printf("Digite o valor do lado A do triangulo: ");
+    scanf("%d",&a);
+    printf("Digite o valor do lado B do triangulo: ");
+    scanf("%d",&b);
+    printf("Digite o valor do lado C do triangulo: ");
+    scanf("%d",&c);
+
+    if (a >0 && b> 0 && c >0){
+        existencia_triangulo(a,b,c);
+        return 0;
+    }else{
+        return 1;
+    }
+    
+}
+
 int main (){
     //VARIAVEIS GLOBAIS
     int opc_menu;
     float a,b,c;
     float teste;
     char letra;
-    int  vetor1[10],vetor2[10],ordem_crescente[5];   
+    int  vetor1[10],vetor2[10],ordem_crescente[5];  
+    int matriz[linha_matriz][coluna_matriz]; 
 
     do{
         printf("Menu \n");
@@ -127,7 +205,7 @@ int main (){
                 printf("2° numero: ");
                 scanf("%f",&b);
                 teste = segundo_exercicio(a,b);
-                printf("%f",teste);
+                printf("%0.2f",teste);
             break;
 
             case 3:
@@ -167,6 +245,22 @@ int main (){
                 //REVER A LOGICA DEPOIS
             break;
 
+            case 6:
+     
+                printf("A soma de todos os elementos da matriz é igual à: %d",soma_matriz(matriz));
+            break;
+
+            case  8:
+
+                do{
+                    printf("Digite as medidas dos lados do triangulo. Todas elas devem ser maiores que 0. \n");
+                    a = verificarMedidas();
+                    if (a != 0){
+                        printf("Ops! Verifique as medidas, pode ser que alguma esteja com valores igual ou menores que 0 \n");
+                        printf("Vamos lá, digite novamente \n");
+                    }
+                }while(a!=0);
+            break;
 
         }
 
